@@ -84,7 +84,7 @@ with mp_hands.Hands(min_detection_confidence = 0.5 , min_tracking_confidence = 0
 
                     #index tip
                     if id == 8:
-                        cv2.circle(img,center = (x,y),radius = 5,color=(0,255,255),thickness=2)
+                        
                         x1 = int(landmark.x * width)
                         y1 = int(landmark.y * height)
                         mx = np.interp(x1,(scalex,width-scalex),(0,sc_width))
@@ -96,7 +96,7 @@ with mp_hands.Hands(min_detection_confidence = 0.5 , min_tracking_confidence = 0
 
                     #middle tip
                     if id == 12:
-                        cv2.circle(img,center = (x,y),radius = 5,color=(0,255,255),thickness=2)
+                        
                         x2 = int(landmark.x * width)
                         y2 = int(landmark.y * height)
 
@@ -111,6 +111,8 @@ with mp_hands.Hands(min_detection_confidence = 0.5 , min_tracking_confidence = 0
                         y4 = int(landmark.y * height)
 
                 if peace_check(y1,y2,y3,y4) == "moving":
+                    cv2.circle(img,center = (x1,y1),radius = 5,color=(0,255,255),thickness=2)
+                    cv2.circle(img,center = (x2,y2),radius = 5,color=(0,255,255),thickness=2)
                     move(cx,cy)
                 elif peace_check(y1,y2,y3,y4) =="lc":
                     pyautogui.click(button="left")
