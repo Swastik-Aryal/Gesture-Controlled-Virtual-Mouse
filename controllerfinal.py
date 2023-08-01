@@ -4,6 +4,7 @@ import numpy as np
 import pyautogui
 import numpy as np
 
+
 '''
 index_tip = 8
 index_mid = 6
@@ -13,6 +14,7 @@ middle_mid = 10
 
 
 pyautogui.FAILSAFE = False
+
 
 smooth = 2
 scalex,scaley =150,150
@@ -49,7 +51,7 @@ with mp_hands.Hands(min_detection_confidence = 0.5 , min_tracking_confidence = 0
 #detection is  for initial detection of hand  tracking is more movement after detection
     while vid.isOpened():
         ret,frame = vid.read()
-        print(frame.shape)
+        # print(frame.shape)
         img = cv2.cvtColor(cv2.flip(frame,1),cv2.COLOR_BGR2RGB)
 
         img.flags.writeable = False
@@ -63,7 +65,7 @@ with mp_hands.Hands(min_detection_confidence = 0.5 , min_tracking_confidence = 0
         cv2.rectangle(img,(scalex,scaley),(width-scalex,height-scaley),(255,0,255),2)
 
         #cv2.imwrite(os.path.join("images","{}.jpg".format(uuid.uuid1())),img)
-        print(results.multi_handedness)
+        # print(results.multi_handedness)
 
 
         if results.multi_hand_landmarks:
@@ -121,10 +123,12 @@ with mp_hands.Hands(min_detection_confidence = 0.5 , min_tracking_confidence = 0
                     
                     
                     
+                    
 
                 elif peace_check(y1,y2,y3,y4) == "rc":
                     pyautogui.click(button="right")
                     cv2.circle(img,center = (x2,y2),radius = 5,color=(0,0,255),thickness=2)
+                    
                     
                     
                     
