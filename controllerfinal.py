@@ -45,8 +45,6 @@ def move(mx,my):
 
 
 
-
-
 with mp_hands.Hands(min_detection_confidence = 0.5 , min_tracking_confidence = 0.5,max_num_hands = 1) as hands:
 #detection is  for initial detection of hand  tracking is more movement after detection
     while vid.isOpened():
@@ -61,12 +59,6 @@ with mp_hands.Hands(min_detection_confidence = 0.5 , min_tracking_confidence = 0
         img.flags.writeable = True
 
         img = cv2.cvtColor(img,cv2.COLOR_RGB2BGR)
-
-        cv2.rectangle(img,(scalex,scaley),(width-scalex,height-scaley),(255,0,255),2)
-
-        #cv2.imwrite(os.path.join("images","{}.jpg".format(uuid.uuid1())),img)
-        # print(results.multi_handedness)
-
 
         if results.multi_hand_landmarks:
             for num,hand in enumerate(results.multi_hand_landmarks):
@@ -89,11 +81,7 @@ with mp_hands.Hands(min_detection_confidence = 0.5 , min_tracking_confidence = 0
                         
                         x1 = int(landmark.x * width)
                         y1 = int(landmark.y * height)
-                        mx = np.interp(x1,(scalex,width-scalex),(0,sc_width))
-                        my = np.interp(y1,(scaley,height-scaley),(0,sc_height))
-
-                        cx = px+(mx-px)/smooth
-                        cy = py+(my-py)/smooth
+                        
 
 
                     #middle tip
@@ -106,6 +94,11 @@ with mp_hands.Hands(min_detection_confidence = 0.5 , min_tracking_confidence = 0
                     if id == 6:
                         x3 = int(landmark.x * width)
                         y3 = int(landmark.y * height)
+                        mx = np.interp(x3,(scalex,width-scalex),(0,sc_width))
+                        my = np.interp(y3,(scaley,height-scaley),(0,sc_height))
+
+                        cx = px+(mx-px)/smooth
+                        cy = py+(my-py)/smooth
 
                     #middle mid
                     if id == 10:
