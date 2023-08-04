@@ -2,9 +2,11 @@ import mediapipe as mp
 import cv2
 import numpy as np
 import pyautogui
+import numpy as np
 import math
 import time
 
+from pynput.mouse import Button, Controller
 
 '''
 index_tip = 8
@@ -12,12 +14,16 @@ index_mid = 6
 middle_tip = 12
 middle_mid = 10
 '''
+mouse = Controller()
 
 pyautogui.FAILSAFE = False
+
 
 smooth = 2
 scalex,scaley =150,150
 wait =0.25
+lclicked =rclicked=False
+
 
 sc_width ,sc_height = pyautogui.size()
 width = 640
@@ -83,9 +89,7 @@ with mp_hands.Hands(min_detection_confidence = 0.5 , min_tracking_confidence = 0
                         
                         x1 = int(landmark.x * width)
                         y1 = int(landmark.y * height)
-                        
-
-
+                    
                     #middle tip
                     if id == 12:
                         
@@ -110,28 +114,36 @@ with mp_hands.Hands(min_detection_confidence = 0.5 , min_tracking_confidence = 0
                 dist = math.sqrt(math.pow(y2-y1,2)+math.pow(x2-x1,2))
 
                 if peace_check(y1,y2,y3,y4) == "moving":
+                    if lclicked == True:
+                        mouse.release(Button.left)
+                        lclicked = False
+                    if rclicked == True:
+                        mouse.release(Button.right)
+                        rclicked = False
+            
                     cv2.circle(img,center = (x1,y1),radius = 5,color=(0,255,255),thickness=2)
                     cv2.circle(img,center = (x2,y2),radius = 5,color=(0,255,255),thickness=2)
                     move(cx,cy)
+                
+
                 elif peace_check(y1,y2,y3,y4) =="lc":
-                    
-                    cv2.circle(img,center = (x1,y1),radius = 5,color=(0,0,255),thickness=2)
-                    pyautogui.click(button="left")
-                    time.sleep(wait)
+                    if lclicked==False:
+                        mouse.press(Button.left)
+                        cv2.circle(img,center = (x1,y1),radius = 5,color=(0,0,255),thickness=2)
+                        lclicked = True
+                        move(cx,cy)
             
                 elif peace_check(y1,y2,y3,y4) == "rc":
-                    
-                    cv2.circle(img,center = (x2,y2),radius = 5,color=(0,0,255),thickness=2)
-                    pyautogui.click(button="right")
-                    time.sleep(wait)
+                    if rclicked==False:
+                        mouse.press(Button.right)
+                        cv2.circle(img,center = (x2,y2),radius = 5,color=(0,0,255),thickness=2)
+                        rclicked = True
                 
                 if(dist<21):
-                    
                     cv2.circle(img,center = (x1,y1),radius = 5,color=(0,0,255),thickness=2)
                     cv2.circle(img,center = (x2,y2),radius = 5,color=(0,0,255),thickness=2)
                     pyautogui.click(clicks=2)
                     time.sleep(wait)
-                    
                     
                     
                     
