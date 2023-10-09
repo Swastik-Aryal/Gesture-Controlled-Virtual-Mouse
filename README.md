@@ -25,7 +25,7 @@ Install the required modules using
 
 
     
-## Demo Usage
+## Usage Demo
 
 <details>
 <summary>Cursor Navigation</summary>
