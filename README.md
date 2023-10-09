@@ -1,6 +1,6 @@
 # Gesture Controlled Virtual Mouse
 
-This is a program for controlling the mouse movement using Python and openCV with real-time camera that detects hand landmarks, tracks gesture patterns instead of a physical mouse.
+This is a program for controlling the mouse movement using Python and OpenCV with real-time camera that detects hand landmarks, tracks gesture patterns instead of a physical mouse.
 
 
 
@@ -25,7 +25,7 @@ Install the required modules using
 
 
     
-## Demo
+## Demo Usage
 
 <details>
 <summary>Cursor Navigation</summary>
